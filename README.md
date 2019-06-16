@@ -2,12 +2,11 @@
 
 This folder contains some resources to get you started with Python.
 
-* First, [read the guide to getting used to basic programming concepts by using Execute Python Online](https://github.com/paulbradshaw/MED7369-Specialist-Investigative-Journalism/blob/master/python/execute_python_online.ipynb)
-* Second, move on to [this guide to some lines of code you can use to interact with an API](https://github.com/paulbradshaw/python_demo/blob/master/executepythononline.md)
-* Next, you can switch to Morph.io and [this guide to using it for scraping](https://github.com/paulbradshaw/MED7369-Specialist-Investigative-Journalism/blob/master/python/1introtopython.ipynb) or [this guide to using it with an API](https://github.com/paulbradshaw/python_demo/blob/master/morphio.md)
-* There's also a [guide to scraping a specific page (on auction listings)](https://github.com/paulbradshaw/MED7369-Specialist-Investigative-Journalism/blob/master/python/scrapingauctions.md)
-* As a student on the MA at Birmingham City University, you have access to a free copy of [Scraping for Journalists](https://leanpub.com/scrapingforjournalists). Look for the special link on Moodle!
-* I have some [more stuff on Python in a dedicated repo](https://github.com/paulbradshaw/python_demo)
+* First, [read the guide to getting used to basic programming concepts by using Execute Python Online](/execute_python_online.ipynb)
+* Second, move on to [this guide to some lines of code you can use to interact with an API](/executepythononline.md)
+* Next, you can switch to Morph.io and [this guide to using it for scraping](/1introtopython.ipynb) or [this guide to using it with an API](/morphio.md)
+* There's also a [guide to scraping a specific page (on auction listings)](/scrapingauctions.md)
+* If you are a journalism student on the [MA in Data Journalism](https://www.bcu.ac.uk/media/courses/data-journalism-ma-2019-20) at Birmingham City University, you have access to a free copy of [Scraping for Journalists](https://leanpub.com/scrapingforjournalists). Look for the special link on Moodle!
 
 ## Python notebooks
 
