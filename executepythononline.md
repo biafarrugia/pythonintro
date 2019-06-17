@@ -1,4 +1,4 @@
-# A brief introduction to Execute Python Online
+# Using Python to fetch data from an API (using Execute Python Online)
 
 The [Execute Python Online website](https://www.tutorialspoint.com/execute_python_online.php) allows you to use Python without creating an account or logging in. Start there (for now)
 
