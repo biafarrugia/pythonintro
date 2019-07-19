@@ -64,7 +64,7 @@ We need to drill down to something more specific.
 
 ## Drilling down into the HTML
 
-Our next section of code does that using functions from another two libraries.
+Our next section of code does that using functions from another two libraries:
 
 ```py
 #Convert that html variable into a new lxml.html object
@@ -77,6 +77,104 @@ lis = root.cssselect('dl dd dl dd')
 #Show how many items are in that new list (how many matches)
 print(len(lis))
 ```
+
+The `.fromstring()` function converts something from a string of characters into an lxml *object*. In this case it is taking the HTML code, which was stored in the variable `html`, and converting that.
+
+That object - `root` is then used with `.cssselect()` to extract elements within particular CSS selectors. The CSS selector `dl dd dl dd` means "anything within a dd tag within a dl tag within a dd tag within a dl tag".
+
+Finally we use the `print()` command to show us how many matches it found.
+
+## Start storing the data
+
+So we've grabbed a bunch of matches from the HTML where text is within a dd tag within a dl tag within a dd tag within a dl tag.
+
+But we need to store each of those matches.
+
+To do that we need to *loop* through the list of matches and store each in turn. Here's the code:
+
+```py
+#create a dictionary to store what we are about to extract
+record = {}
+#loop through those lis
+for li in lis:
+  #Print the text within that tag and any child tags
+  print(li.text_content())
+  #This next line is an alternate troubleshooted version in case there are odd characters that cause an error
+  #print(li.text_content().encode('utf-8').strip())
+  #Store that in the dictionary, under the key 'address'
+  record['address'] = li.text_content()
+  record['country'] = li.text_content().split(',')[-1]
+  #If we were scraping <a > links and wanted to extract the href attribute, we would use this
+  #detaillink = baseurl+li.attrib['href']
+  #record['link'] = detaillink
+  #Save the whole dictionary as a new row in a table in a sqlite database
+  scraperwiki.sqlite.save(['address'],record, table_name='twintowns')
+```
+
+The list of matches is called `lis`. As we loop through it we call the match `li`.
+
+We then extract a certain quality of that match. For example to get the text within it, we use `.text_content()`.
+
+In one case we also split that text on any commas by adding `.split(',')`. Because that creates a list (a single item is split into many), ann *index* is used to extract the *last* item in that list: `[-1]`
+
+Right at the start of the code you'll notice we created a variable called `record` like so: `record = {}`
+
+The `{}` indicates that this is a dictionary object, which is useful for storing data. Later on we add data to it like so:
+
+`record['address'] =`
+
+Once we have added what we want to that dictionary, we save the whole dictionary in turn as a row in a table:
+
+`scraperwiki.sqlite.save(['address'],record, table_name='twintowns')`
+
+There are quite a few things happening here, so let's break them down:
+
+First, `scraperwiki.sqlite.save()` saves a data record to a table in a sqlite database. It needs 3 ingredients:
+
+* The unique key of the table - this is `['address']`
+* The name of the dictionary object with the data for the row. That is `record`
+* The name of the table, specified with the `table_name=` parameter. The name here is `twintowns`
+
+## Accessing that database
+
+If we want to save this as a CSV file we need to get it back out of the database, and that's the last step. Here's the code:
+
+```py
+#print the results of querying that table in that database
+print(scraperwiki.sql.select("count(*) from twintowns"))
+#Store the results of another query
+polandtowns = scraperwiki.sql.select("* from twintowns where address LIKE '%Poland%'")
+#Print the contents of that variable
+print(polandtowns)
+#Convert that list of dicts into a pandas dataframe
+polandtownsdf = pd.DataFrame(polandtowns)
+#Export as a CSV file using the .to_csv function https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html
+polandtownsdf.to_csv('out.csv')
+```
+
+To get data out of a database you can *query* it. That's what this is:
+
+`scraperwiki.sql.select("* from twintowns where address LIKE '%Poland%'")`
+
+If you wanted to get all data you would just specify
+
+`scraperwiki.sql.select("* from twintowns")`
+
+This means 'select all from the table called twintowns'
+
+But the example in the code adds a filter: `where address LIKE '%Poland%`
+
+This limits the results to those containing the characters 'Poland'
+
+The results of the query are put in a variable called `polandtowns`
+
+Next, the `.DataFrame()` function from the `pandas` library (called `pd` for short in the code) converts that data to a data frame object. That is stored in `polandtownsdf`:
+
+`polandtownsdf = pd.DataFrame(polandtowns)`
+
+Finally, the `.to_csv()` function creates a CSV from the dataframe that is attached to it with a period. You just need to specify the name including ".csv".
+
+`polandtownsdf.to_csv('out.csv')`
 
 ## The final code
 
