@@ -85,3 +85,44 @@ print("hello")
 ```
 
 Then click the 'play' button (actually it means 'run') to the left of that section.
+
+The code in that section will now run. Two things to point out here:
+
+1. A number in square brackets will appear to the left of the code section. This indicates the order in which a section of code has been run, so at the moment this will be `[1]` to indicate that this was run first. If sections of code have been run out of sequence (for example a section at the bottom of a notebook was run first, and then one near the top), these numbers can help you to identify that. It will also indicate if code has been run and then deleted (numbers will be missing).
+2. Any **output** from the code will be displayed underneath the code section. Sometimes - in fact, often - code will not have any obvious output. The `print()` command above is often used to create an output that allows us to see what's happening inside the code. But unless we ask it to show us in this way, we won't necessarily be able to check what the code is doing.
+
+To demonstrate this, create a new code section and type the following:
+
+```py
+myname = "Paul"
+```
+
+And *run* the code.
+
+Note that this time there is no output. 
+
+What you have done with that line of code is create a new **variable**. A variable is a way to store information in code. In this case it is storing the text `"Paul"`.
+
+If we want to check what is in that variable, we can use `print()` again, this time putting the variable name inside the brackets:
+
+
+```py
+print(myname)
+```
+
+Now we can see the *contents* of that variable. 
+
+Some other things to point out about this variable. You will notice that `"Paul"` was in quotation marks. This tells Python that we are storing text (in programming, what we call a **string**: a string of characters).
+
+If we didn't use quotation marks... 
+
+```py
+myname = Paul
+```
+
+...we would get an error:
+
+`NameError: name 'Paul' is not defined`
+
+This is because Python now assumes we are referring not to a string of characters "Paul", but instead that `Paul` means something special. For example, it might be the name of a command, or another variable, or a piece of code called a function. 
+
